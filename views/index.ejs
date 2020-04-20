@@ -1,8 +1,32 @@
 <%- include('partials/header') -%>
+<%- include('partials/homenavbar') -%>
+
 <body>
-    <h1>Teste de view</h1>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-4">Hello! This is a minimalist blog developed by Pedro Maschio</h1>
+            <p class="lead">The technologies used to build it were: NodeJS, Ejs (view-engine), 
+                Sequelize (ORM for MySQL), TinyMCE (text editor) and Express.
+            </p>
+            <hr class="my-4">
+            <p>Feel free to play with the project or suggest any way to improve it! Thank you.</p>
+            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        </div>
 
 
-
+        <h1 class="text-center mb-4 mt-4">Main Articles</h1>
+        <% articles.forEach((article) => {%>
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title"><%=article.title%></h2>
+                </div>
+                <div class="card-body">
+                    <h6><strong>Category:</strong> <%=article.category.title%></h6>
+                    <a href="article/<%=article.slug%>" class="btn btn-success">Read More</a>
+                </div>
+            <div>
+        <%})%>
+        
+    </div>
 </body>
 <%- include('partials/footer') -%>

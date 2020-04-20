@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const connection = require('./database/database');
 const Article = require('./articles/Article');
-const Category = require('./categories/Categorie');
+const Category = require('./categories/Category');
 
 const app = express();
 
@@ -28,7 +28,32 @@ app.use('/', categoriesController);
 app.use('/', articlesController);
 
 app.get('/', (req, res) => {
-    res.render('index');
+    Article.findAll({
+        include: [{model:Category}],
+        order: [['createdAt', 'DESC']]
+    }).then(articles => {
+        res.render('index', {articles: articles});
+    });
+    
+});
+
+app.get('/article/:slug', (req, res) => {
+    var slug = req.params.slug;
+
+    Article.findOne({
+        where: {
+            slug: slug
+        }
+    }).then((article) => {
+        if(article != undefined) {
+            res.render('article', {article: article});
+        } else {
+            res.redirect('/');
+        }
+    }).catch((error) => {
+        console.log(error);
+        res.redirect('/');
+    });
 });
 
 

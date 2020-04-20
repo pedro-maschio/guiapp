@@ -4,8 +4,8 @@
     <hr>
     <h2 class="text-center">Categories</h2>
     <hr>
-    <a class="btn btn-dark" href="/admin/categories/new">Create Category</a>
-    <table class="table table-bordered table-hover">
+    <a class="btn btn-dark mb-3" href="/admin/categories/new">Create Category</a>
+    <table class="table table-bordered table-hover table-responsive-sm">
         <thead>
             <tr>
                 <th>ID</th>
@@ -17,15 +17,13 @@
         <tbody>
             <% categories.forEach((category) => { %>
                 <tr>
-                    <td><%=category.id%></td>
-                    <td><%=category.title%></td>
-                    <td><%=category.slug%></td>
+                    <td><strong><%=category.id%></strong></td>
+                    <td><strong><%=category.title%></strong></td>
+                    <td><strong><%=category.slug%></strong></td>
+
                     <td>
-                        <form method="POST" action="/admin/categories/edit" style="display:inline">
-                            <input type="hidden" name="id" value="<%=category.id%>">
-                            <button class="btn btn-warning">Edit</button>
-                        </form>
-                        <form method="POST" action="/admin/categories/delete"  style="display: inline">
+                        <a href="/admin/categories/edit/<%=category.id%>" class="btn btn-warning">Edit</a>
+                        <form method="POST" action="/admin/categories/delete"  style="display: inline" onsubmit="confirmaDelecao()">
                             <input type="hidden" name="id" value="<%=category.id%>">
                             <button class="btn btn-danger">Delete</button>
                         </form>
@@ -36,3 +34,10 @@
     </table>
 </div>
 <%- include('../../partials/footer') -%>
+<script type="text/javascript">
+    function confirmaDelecao() {
+        if(!confirm('Are you sure you want to delete?')) {
+            event.preventDefault();
+        }
+    }
+</script>

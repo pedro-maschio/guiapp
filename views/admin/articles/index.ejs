@@ -1,0 +1,43 @@
+<%- include('../../partials/header') -%>
+<%- include('../../partials/navbar') -%>
+<div class="container">
+    <hr>
+    <h2 class="text-center">Articles</h2>
+    <hr>
+    <a class="btn btn-dark mb-3" href="/admin/articles/new">Create Article</a>
+    <table class="table table-bordered table-hover table-responsive-sm">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Slug</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% articles.forEach((article) => {%>
+                <tr>
+                    <td><%=article.id%></td>
+                    <td><%=article.title%></td>
+                    <td><%=article.slug%></td>
+                    <td><%=article.category.title%></td>
+                    <td>
+                    <form method="POST" action="/admin/articles/delete"  style="display: inline" onsubmit="confirmaDelecao()">
+                        <input type="hidden" name="id" value="<%=article.id%>">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                    </td>
+                </tr>
+            <%})%>
+        </tbody>
+    </table>
+</div>
+<%- include('../../partials/footer') -%>
+<script type="text/javascript">
+    function confirmaDelecao() {
+        if(!confirm('Are you sure you want to delete?')) {
+            event.preventDefault();
+        }
+    }
+</script>

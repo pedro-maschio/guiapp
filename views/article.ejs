@@ -1,0 +1,20 @@
+<%- include('partials/header') -%>
+<%- include('partials/homenavbar') -%>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title text-center"><%=article.title%></h2>
+                <p>Published at: <%=article.createdAt%></p>
+                <% if(article.createdAt < article.updatedAt) { %>
+                    <p>Updated at: <%=article.updatedAt%></p>
+                <%}%>
+            </div>
+            <div class="card-body">
+                <%-article.body%>
+            </div>
+        <div>
+    </div>
+</body>
+<%- include('partials/footer') -%>
