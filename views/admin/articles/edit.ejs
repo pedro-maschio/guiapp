@@ -1,0 +1,40 @@
+<%- include('../../partials/header') -%>
+<%- include('../../partials/navbar') -%>
+<div class="container">
+    <h1 class="mt-3 text-center">Article Editing</h1>
+    <hr>
+    <form method="POST" action="/admin/articles/update">
+        <input type="hidden" value="<%=article.id%>" name="id">
+        <label for="title">Article Title</label>
+        <input class="form-control"  type="text" name="title" placeholder="Insert the article title" value="<%=article.title%>" required>
+        <br>
+        <label for="category">Category</label>
+        <select name="category" class="form-control mb-4">
+            <% categories.forEach((category) => { %>
+                <% if(category.id == article.categoryId) { %>
+                    <option value="<%=category.id%>" selected><%=category.title%></option>
+                <%} else { %>
+                    <option value="<%=category.id%>"><%=category.title%></option>
+            <%}})%>
+        </select>
+        <textarea rows="13" class="form-control" placeholder="Write your article here." name="body" id="article"><%=article.body%></textarea>
+
+        <button class="btn btn-dark mt-3">Update Article</button>
+    </form>
+</div>
+<div id="content">
+    
+</div>
+<%- include('../../partials/footer') -%>
+<script src="/tinymce/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        //language: 'pt_BR',
+        selector: "#article",
+        plugins: [
+            'advlist autolink link image lists print preview hr searchreplace wordcount fullscreen insertdatetime media save table paste emoticons'
+        ]
+    })
+
+
+</script>
