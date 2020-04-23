@@ -1,0 +1,36 @@
+<%- include('./../../partials/header') -%>
+<%- include('./../../partials/homenavbar') -%>
+
+<body>
+    <div class="container">
+
+        <h1 class="text-center mb-4 mt-4">Main Articles</h1>
+        <% result.articles.rows.forEach((article) => {%>
+            <div class="card">
+                <div class="card-header">
+                    <a href="/article/<%=article.slug%>" style="text-decoration: none; color: black"><h2 class="card-title"><%=article.title%></h2></a>
+                </div>
+                <div class="card-body">
+                    <a href="/article/<%=article.slug%>" class="btn btn-success">Read More</a>
+                </div>
+            <div>
+        <%})%>
+        <div class="row">
+            <div class="col">
+            <% if(page > 1) { %>
+                <a href="/articles/page/<%=page-1%>" class="btn btn-success">Previous</a>
+            <%} else {%>
+                <button href="/articles/page/<%=page-1%>" class="btn btn-success" disabled>Previous</button>
+            <%}%>
+
+            <% if(result.next == true) { %>
+                <a href="/articles/page/<%=(parseInt(page)+1)%>" class="btn btn-success float-right">Next</a>
+            <%} else {%>
+                <button href="/articles/page/<%=(parseInt(page)+1)%>" class="btn btn-success float-right" disabled>Next</button>
+            <%}%>
+
+            </div>
+        </div>  
+    </div>
+</body>
+<%- include('./../../partials/footer') -%>

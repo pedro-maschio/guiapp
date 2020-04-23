@@ -3,11 +3,13 @@ const bodyParser = require('body-parser');
 const connection = require('./database/database');
 const Article = require('./articles/Article');
 const Category = require('./categories/Category');
+const User = require('./user/User');
 
 const app = express();
 
 const categoriesController = require('./categories/categoriesController');
 const articlesController = require('./articles/articlesController');
+const userController = require('./user/usersController');
 
 // View engine and static files
 app.set('view engine', 'ejs');
@@ -26,11 +28,13 @@ connection.authenticate().then(() => {
 
 app.use('/', categoriesController);
 app.use('/', articlesController);
+app.use('/', userController);
 
 app.get('/', (req, res) => {
     Article.findAll({
         include: [{model:Category}],
-        order: [['createdAt', 'DESC']]
+        order: [['createdAt', 'DESC']],
+        limit: 4
     }).then(articles => {
         Category.findAll().then(categories => {
             res.render('index', {articles: articles, categories: categories});

@@ -92,6 +92,40 @@ router.post('/admin/articles/update', (req, res) => {
     })
 }); 
 
+router.get('/articles/page/:num', (req, res) => {
+    var page = req.params.num;
+    var elPerPage = 6;
+    var offset;
+
+    if(isNaN(page) || page == 1 || page == 0)
+        offset = 0;
+    else 
+        offset = (parseInt(page)-1)*elPerPage;
+   
+    Article.findAndCountAll({
+        limit: elPerPage,
+        offset: offset,
+        order: [['createdAt', 'DESC']]
+    }).then(articles => {
+        var next = true;
+
+        if(offset+elPerPage >= articles.count)
+            next = false;
+
+        var result = {
+            next: next,
+            articles: articles, 
+
+        }
+        console.log(result);
+        Category.findAll().then(categories => {
+            res.render('admin/articles/page', {page: page, result : result, categories : categories});
+        });
+        
+    });
+
+});
+
 
 
 module.exports = router;
