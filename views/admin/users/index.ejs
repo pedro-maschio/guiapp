@@ -1,0 +1,26 @@
+<%- include('../../partials/header') -%>
+<%- include('../../partials/navbar') -%>
+
+<div class="container">
+    <hr>
+    <h2 class="text-center">Registered Users</h2>
+    <hr>
+    <table class="table table-bordered table-hover table-responsive-sm">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% users.forEach((user) => { %>
+                <tr>
+                    <td><strong><%=user.id%></strong></td>
+                    <td><strong><%=user.email%></strong></td>
+                </tr>
+            <%})%>
+        </tbody>
+    </table>
+</div>
+
+<%- include('../../partials/footer.ejs') %>

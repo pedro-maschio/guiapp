@@ -4,27 +4,19 @@
 <div class="container">
     <hr>
     <div class="card">
-        <h1 class="text-center mt-2">User Registration</h1>
+        <h1 class="text-center mt-2">Admin Login</h1>
         <div class="card-body">
-            <form action="/users/create" method="POST">
+            <form action="/authenticate" method="POST">
                 <label for="email">Email</label>
                 <input class="form-control" name="email" type="email" placeholder="email@example.com">
                 <br>
                 <label for="password">Password</label>
                 <input name="password" type="password" class="form-control">
                 <br>
-                <button type="submit" class="btn btn-success btn-block">Create</button>
+                <button type="submit" class="btn btn-success btn-block">Sign In</button>
             </form>
         </div>
-          <% if(cadastrado.length != 0) { %>
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <%= cadastrado %>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div> 
 
-        <%} %>
     </div>
 </div>
 
