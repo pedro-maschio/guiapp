@@ -5,17 +5,16 @@
     <div class="container">
         <div class="jumbotron">
             <h1 class="display-4">Hello! This is a minimalist blog developed by Pedro Maschio</h1>
-            <p class="lead">The technologies used to build it were: NodeJS, Ejs (view-engine), 
+            <p class="lead">The technologies used to build it were: NodeJS, EJS (view-engine), 
                 Sequelize (ORM for MySQL), TinyMCE (text editor) and Express.
             </p>
             <hr class="my-4">
             <p>Feel free to play with the project or suggest any way to improve it! Thank you.</p>
-            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+            <a class="btn btn-primary btn-lg" href="/guide" role="button">Guide</a>
         </div>
 
-
         <h1 class="text-center mb-4 mt-4">Main Articles</h1>
-        <% articles.forEach((article) => {%>
+        <% result.articles.rows.forEach((article) => {%>
             <div class="card">
                 <div class="card-header">
                     <a href="article/<%=article.slug%>" style="text-decoration: none; color: black"><h2 class="card-title"><%=article.title%></h2></a>
@@ -25,12 +24,11 @@
                 </div>
             <div>
         <%})%>
-        <div class="row">
-            <div class="col">
-                <a href="/articles/page/2" class="btn btn-success float-right">Next</a>
-            </div>
-            <hr>
-        </div>
+        <% if(result.next == true) { %>
+            <a href="/articles/page/<%=(parseInt(page)+1)%>" class="btn btn-success float-right">Next</a>
+        <%} else {%>
+            <button href="/articles/page/<%=(parseInt(page)+1)%>" class="btn btn-success float-right" disabled>Next</button>
+        <%}%>
     </div>
 </body>
 <%- include('partials/footer') -%>

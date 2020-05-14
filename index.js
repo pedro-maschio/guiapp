@@ -18,7 +18,7 @@ app.use(express.static('public'));
 // Sessions
 app.use(session({
     secret: "kjf%klef934kldj2123",
-    cookie: {maxAge: 30000000}
+    cookie: {maxAge: 10800000}
 }));
 
 // Body parser
@@ -52,7 +52,7 @@ app.get('/leitura', (req, res) => {
     res.json({ano: req.session.ano, usuario: req.session.user});
 });
 
-app.get('/', (req, res) => {
+/*app.get('/', (req, res) => {
     Article.findAll({
         include: [{model:Category}],
         order: [['createdAt', 'DESC']],
@@ -63,6 +63,38 @@ app.get('/', (req, res) => {
         });
     });
     
+});*/
+
+app.get('/', (req, res) => {
+    var elPerPage = 6;
+    var offset;
+    var page = 0;
+    if(isNaN(page) || page == 1 || page == 0)
+        offset = 0;
+    else 
+        offset = (parseInt(page)-1)*elPerPage;
+   
+    Article.findAndCountAll({
+        limit: elPerPage,
+        offset: offset,
+        order: [['createdAt', 'DESC']]
+    }).then(articles => {
+        var next = true;
+
+        if(offset+elPerPage >= articles.count)
+            next = false;
+
+        var result = {
+            next: next,
+            articles: articles, 
+
+        }
+        console.log(result);
+        Category.findAll().then(categories => {
+            res.render('index', {page: page, result : result, categories : categories});
+        });
+        
+    });
 });
 
 app.get('/article/:slug', (req, res) => {
@@ -109,6 +141,10 @@ app.get('/category/:slug', (req, res) => {
         console.log(error);
         res.redirect('/');
     });
+});
+
+app.get('/guide', (req, res) => {
+    res.render('guide', {user: req.session.user});
 });
 
 

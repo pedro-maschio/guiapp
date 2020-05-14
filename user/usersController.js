@@ -6,7 +6,7 @@ const User = require('./User');
 
 router.get('/admin/users', (req, res) => {
     User.findAll().then(users => {
-        res.render('admin/users/index', {users: users});
+        res.render('admin/users/index', {users: users, user: req.session.user});
     }).catch(error => {
         console.log(error);
         res.redirect('/');
@@ -15,7 +15,7 @@ router.get('/admin/users', (req, res) => {
 
 router.get('/admin/users/create', (req, res) => {
     var cadastrado = "";
-    res.render('admin/users/create', {cadastrado: cadastrado});
+    res.render('admin/users/create', {cadastrado: cadastrado, user: req.session.user});
 });
 
 router.post('/users/create', (req, res) => {
@@ -39,7 +39,7 @@ router.post('/users/create', (req, res) => {
             });
         } else {
             cadastrado = "O usuário já se encontra cadastrado";
-            res.render('admin/users/create', {cadastrado: cadastrado});
+            res.render('admin/users/create', {cadastrado: cadastrado, user: req.session.user});
         }
     });
  
@@ -54,7 +54,7 @@ router.post('/authenticate', (req, res) => {
     var password = req.body.password;
 
     User.findOne({where: {email: email}}).then(user => {
-        if(user != undefined && user != null) { // if user exist
+        if(user != undefined) { // if user exist
             // validate password
             var passCheck = bcrypt.compareSync(password, user.password);
             if(passCheck) {
@@ -62,7 +62,7 @@ router.post('/authenticate', (req, res) => {
                     id: user.id,
                     email: user.email
                 };
-                res.json(req.session.user);
+                res.redirect('/');
             } else {
                 res.redirect('/login');
             }
@@ -70,6 +70,11 @@ router.post('/authenticate', (req, res) => {
             res.redirect('/login');
         }
     });
+});
+
+router.get('/logout', (req, res) => {
+    req.session.user = undefined;
+    res.redirect('/');
 });
 
 module.exports = router;
