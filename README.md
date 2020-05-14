@@ -1,5 +1,3 @@
-# guiapp
-
 # User Guide (and also a developer guide)
 
 ## How to Run Locally
@@ -14,9 +12,9 @@ on terminal. At this point, you can go to localhost:8081 on your browser.
 ## Disclaimer
 This project was done during the Covid-19 pandemic in the beginning of 2020 and it is not suitable for professional use, it was just for learning.  
 For proper using the system, you will need to create an account in **localhost:8081/admin/users/create**, then the user should log in into it through **localhost:8081/login**, after choosing an email and password, the user should have access of all blog functionalities, that include:
-    - Article Managing (register, update and delete)
-        - in /admin/articles
-    - Category Managing (register, update and delete)</li></a>
-        - in /admin/categories
+- Article Managing (register, update and delete)
+    - in /admin/articles
+- Category Managing (register, update and delete)</li></a>
+    - in /admin/categories
 
-That's all.
+Good use!
