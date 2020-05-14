@@ -129,8 +129,8 @@ app.get('/category/:slug', (req, res) => {
     }).then((category) => {
         if(category != undefined) {
             Category.findAll().then(categories => {
-                res.render('index', {articles: category.articles, categories: categories});
-                console.log(category.articles);
+                res.render('admin/categories/index', {articles: category.articles, categories: categories, user: req.session.user});
+               
             });
             
         } else {
