@@ -3,7 +3,7 @@
 ## How to Run Locally
 To properly functioning, you need to have Node and MySQL installed. You will need to create a 
 database named **guiapress**, don't add any table to it. After  doing this,
-download the project. Inside the project folder, open you terminal and type **node install**,
+download the project. Inside the project folder, open you terminal and type **npm install**,
 this will install all dependencies necessary to running the system. Then go to **/categories/Category.js** and uncomment the line 15, then, 
 inside the project folder, run "node index.js". Stop the server with Ctrl + C. 
 After doing this, go to **/articles/Article.js** and uncomment the line 23. Then, do node index.js again
